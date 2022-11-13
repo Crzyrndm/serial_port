@@ -18,7 +18,7 @@ include(CMakePackageConfigHelpers)
 target_include_directories(serial_port PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
 set(serial_port_install_config_dir "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
-set(serial_port_install_data_dest "${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}/cmake")
+set(serial_port_install_data_dest "${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}")
 set(serial_port_package_config_file "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake")
 set(serial_port_package_config_version_file "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake")
 set(serial_port_export "${PROJECT_NAME}-targets")
@@ -44,6 +44,7 @@ install(TARGETS ${PROJECT_NAME}
     EXPORT ${serial_port_export}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
