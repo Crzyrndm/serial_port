@@ -24,7 +24,7 @@ set(serial_port_package_config_version_file "${CMAKE_CURRENT_BINARY_DIR}/${PROJE
 set(serial_port_export "${PROJECT_NAME}-targets")
 
 configure_package_config_file(cmake/serial_port_config.cmake.in
-	serial_port_package_config_file}
+	${serial_port_package_config_file}
 	INSTALL_DESTINATION ${serial_port_install_data_dest}
 )
 write_basic_package_version_file(
