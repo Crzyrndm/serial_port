@@ -49,7 +49,7 @@ namespace SerialPortUtils
      * Timeout = 50ms
      *
      */
-    class SerialPort
+    class SERIAL_PORT_EXPORT SerialPort
     {
     public:
         static std::vector<SerialPortInfo> getSerialPortList();

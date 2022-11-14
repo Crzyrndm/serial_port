@@ -2,19 +2,21 @@
 #ifndef SERIAL_PORT_INFO_H
 #define SERIAL_PORT_INFO_H
 
-//************Content************
-
 #include <atlbase.h>
 #include <iostream>
 #include <string>
 #include <vector>
+
+#if !defined(SERIAL_PORT_EXPORT)
+#define SERIAL_PORT_EXPORT
+#endif
 
 namespace SerialPortUtils
 {
     /**
      * @brief Serial Port Information
      */
-    class SerialPortInfo
+    class SERIAL_PORT_EXPORT SerialPortInfo
     {
     public:
         static std::vector<std::string> toFriendlyNameList(std::vector<SerialPortInfo> serialPorts);

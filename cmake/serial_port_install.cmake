@@ -15,12 +15,12 @@
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
-target_include_directories(serial_port PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+target_include_directories(serial-port PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
-set(serial_port_install_config_dir "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
+set(serial_port_install_config_dir "${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}")
 set(serial_port_install_data_dest "${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}")
-set(serial_port_package_config_file "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake")
-set(serial_port_package_config_version_file "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake")
+set(serial_port_package_config_file "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake")
+set(serial_port_package_config_version_file "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake")
 set(serial_port_export "${PROJECT_NAME}-targets")
 
 configure_package_config_file(cmake/serial_port_config.cmake.in
