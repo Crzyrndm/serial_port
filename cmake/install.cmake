@@ -25,7 +25,7 @@ include(CMakePackageConfigHelpers)
 set( package_folder         "${package_name}" )
 set( package_target         "${package_name}-targets" )
 set( package_config         "${package_name}-config.cmake" )
-set( package_config_in      "${package_name}-config.cmake.in" )
+set( package_config_in      "package-config.cmake.in" )
 set( package_config_version "${package_name}-config-version.cmake" )
 
 target_include_directories(${package_name} PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)

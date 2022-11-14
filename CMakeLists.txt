@@ -48,7 +48,9 @@ set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "d")
 # Packaging and installation
 
 if (SERIAL_PORT_INSTALL)
+    # uncomment for easy debugging. Comment before publishing
+    # set(CMAKE_INSTALL_PREFIX "install") 
     set( package_nspace  ${PROJECT_NAME} )
     set( package_name    ${PROJECT_NAME} )
-    include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/serial_port_install.cmake)
+    include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/install.cmake)
 endif()
