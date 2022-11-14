@@ -12,10 +12,15 @@
 # This ended up being based on https://github.com/microsoft/GSL/blob/main/cmake/gsl_install.cmake
 #
 
+if (NOT DEFINED package_name)
+    message(FATAL_ERROR "variable 'package_name' has not been defined")
+endif()
+if (NOT DEFINED package_nspace)
+    message(FATAL_ERROR "variable 'package_nspace' has not been defined")
+endif()
+
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
-
-target_include_directories(serial-port PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
 set( package_folder         "${package_name}" )
 set( package_target         "${package_name}-targets" )
@@ -23,10 +28,13 @@ set( package_config         "${package_name}-config.cmake" )
 set( package_config_in      "${package_name}-config.cmake.in" )
 set( package_config_version "${package_name}-config-version.cmake" )
 
+target_include_directories(${package_name} PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+
 configure_package_config_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake/${package_config_in}"
     "${CMAKE_CURRENT_BINARY_DIR}/${package_config}"
-    INSTALL_DESTINATION "${CMAKE_INSTALL_DATADIR}/cmake/${package_folder}"
+    INSTALL_DESTINATION "${CMAKE_INSTALL_DATADIR}/${package_folder}"
+    NO_SET_AND_CHECK_MACRO
 )
 write_basic_package_version_file(
 	"${CMAKE_CURRENT_BINARY_DIR}/${package_config_version}"
@@ -34,24 +42,20 @@ write_basic_package_version_file(
 	COMPATIBILITY SameMajorVersion
 )
 install(
-    TARGETS ${package_name}
-    EXPORT  ${package_target}
-)
-install(
-    EXPORT      ${package_target}
-    NAMESPACE   ${package_nspace}::
-    DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${package_folder}"
-)
-install(
-    EXPORT      ${package_target}
-    FILE        "${package_name}-targets.cmake"
-    DESTINATION "${CMAKE_INSTALL_LIBDIR}/${package_folder}"
+    FILES       "${CMAKE_CURRENT_BINARY_DIR}/${package_config}"
+                "${CMAKE_CURRENT_BINARY_DIR}/${package_config_version}"
+    DESTINATION "${CMAKE_INSTALL_DATADIR}/${package_folder}"
 )
 
 install(
-    FILES       "${CMAKE_CURRENT_BINARY_DIR}/${package_config}"
-                "${CMAKE_CURRENT_BINARY_DIR}/${package_config_version}"
-    DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${package_folder}"
+    TARGETS ${package_name}
+    EXPORT  ${package_target}
 )
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+install(
+    EXPORT      ${package_target}
+    NAMESPACE   ${package_nspace}::
+    DESTINATION "${CMAKE_INSTALL_DATADIR}/${package_folder}"
+)

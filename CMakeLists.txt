@@ -1,13 +1,9 @@
 cmake_minimum_required(VERSION 3.24)
 
 project(serial-port
-    VERSION 1.0.5
+    VERSION 1.0.6
     LANGUAGES CXX
 )
-
-set(CMAKE_INSTALL_PREFIX "./install")
-set( package_nspace  ${PROJECT_NAME} )
-set( package_name    ${PROJECT_NAME} )
 
 option(SERIAL_PORT_INSTALL "Generate and install serial-port target" ${PROJECT_IS_TOP_LEVEL})
 
@@ -42,7 +38,8 @@ target_compile_definitions(${PROJECT_NAME}
 if(BUILD_SHARED_LIBS AND WIN32)
 	target_compile_definitions(${PROJECT_NAME}
 		PRIVATE "SERIAL_PORT_EXPORT=__declspec(dllexport)"
-		INTERFACE "SERIAL_PORT_EXPORT=__declspec(dllimport)")
+		INTERFACE "SERIAL_PORT_EXPORT=__declspec(dllimport)"
+    )
 endif()
 
 set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "d")
@@ -51,5 +48,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "d")
 # Packaging and installation
 
 if (SERIAL_PORT_INSTALL)
+    set( package_nspace  ${PROJECT_NAME} )
+    set( package_name    ${PROJECT_NAME} )
     include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/serial_port_install.cmake)
 endif()

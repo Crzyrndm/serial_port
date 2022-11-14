@@ -1,7 +1,5 @@
 @PACKAGE_INIT@
 
-if( NOT TARGET @package_nspace@::@package_name@ )
-    include( "${CMAKE_CURRENT_LIST_DIR}/@package_target@.cmake" )
-endif()
+include( "${CMAKE_CURRENT_LIST_DIR}/@package_target@.cmake" )
 
-check_required_components(serial_port)
+check_required_components(serial-port)
