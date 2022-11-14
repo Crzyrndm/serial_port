@@ -17,42 +17,41 @@ include(CMakePackageConfigHelpers)
 
 target_include_directories(serial-port PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
-set(serial_port_install_config_dir "${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}")
-set(serial_port_install_data_dest "${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}")
-set(serial_port_package_config_file "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake")
-set(serial_port_package_config_version_file "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake")
-set(serial_port_export "${PROJECT_NAME}-targets")
+set( package_folder         "${package_name}" )
+set( package_target         "${package_name}-targets" )
+set( package_config         "${package_name}-config.cmake" )
+set( package_config_in      "${package_name}-config.cmake.in" )
+set( package_config_version "${package_name}-config-version.cmake" )
 
-configure_package_config_file(cmake/serial_port_config.cmake.in
-	${serial_port_package_config_file}
-	INSTALL_DESTINATION ${serial_port_install_data_dest}
+configure_package_config_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/${package_config_in}"
+    "${CMAKE_CURRENT_BINARY_DIR}/${package_config}"
+    INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${package_folder}"
 )
 write_basic_package_version_file(
-	${serial_port_package_config_version_file}
+	"${CMAKE_CURRENT_BINARY_DIR}/${package_config_version}"
 	VERSION ${PROJECT_VERSION}
 	COMPATIBILITY SameMajorVersion
 )
 install(
-	FILES
-		${serial_port_package_config_file}
-		${serial_port_package_config_version_file}
-	DESTINATION
-		${serial_port_install_data_dest}
+    TARGETS ${package_name}
+    EXPORT  ${package_target}
+)
+install(
+    EXPORT      ${package_target}
+    NAMESPACE   ${package_nspace}::
+    DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${package_folder}"
+)
+install(
+    EXPORT      ${package_target}
+    FILE        "${package_name}-targets.cmake"
+    DESTINATION "${CMAKE_INSTALL_LIBDIR}/${package_folder}"
 )
 
-install(TARGETS ${PROJECT_NAME}
-    EXPORT ${serial_port_export}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+install(
+    FILES       "${CMAKE_CURRENT_BINARY_DIR}/${package_config}"
+                "${CMAKE_CURRENT_BINARY_DIR}/${package_config_version}"
+    DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${package_folder}"
 )
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-install(EXPORT ${serial_port_export}
-    FILE
-        ${serial_port_export}.cmake
-    NAMESPACE
-        ${PROJECT_NAME}::
-    DESTINATION
-        ${serial_port_install_config_dir}
-)

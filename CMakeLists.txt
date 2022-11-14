@@ -1,9 +1,13 @@
 cmake_minimum_required(VERSION 3.24)
 
 project(serial-port
-    VERSION 1.0.4
+    VERSION 1.0.5
     LANGUAGES CXX
 )
+
+set(CMAKE_INSTALL_PREFIX "./install")
+set( package_nspace  ${PROJECT_NAME} )
+set( package_name    ${PROJECT_NAME} )
 
 option(SERIAL_PORT_INSTALL "Generate and install serial-port target" ${PROJECT_IS_TOP_LEVEL})
 
