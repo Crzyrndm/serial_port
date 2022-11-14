@@ -26,7 +26,7 @@ set( package_config_version "${package_name}-config-version.cmake" )
 configure_package_config_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake/${package_config_in}"
     "${CMAKE_CURRENT_BINARY_DIR}/${package_config}"
-    INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${package_folder}"
+    INSTALL_DESTINATION "${CMAKE_INSTALL_DATADIR}/cmake/${package_folder}"
 )
 write_basic_package_version_file(
 	"${CMAKE_CURRENT_BINARY_DIR}/${package_config_version}"
