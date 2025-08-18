@@ -4,15 +4,15 @@
 
 //************Content************
 
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
 #include "serial_port/serial_port_info.h"
-#include <atlbase.h>
 #include <functional>
 #include <mutex>
 #include <string>
 #include <tchar.h>
 #include <vector>
-#include <windows.h>
-#include <winreg.h>
 
 /**
  * @example eg1_print_ports.cpp
